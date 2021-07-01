@@ -146,8 +146,8 @@ class VersatileImageFieldTestCase(VersatileImageFieldBaseTestCase):
             img_type='webp',
             image="python-logo.webp",
             ppoi="0.5x0.5",
-            width=0,
-            height=0
+            width=580,
+            height=164
         )
         cls.delete_test = VersatileImageTestModel.objects.create(
             img_type='delete_test',
