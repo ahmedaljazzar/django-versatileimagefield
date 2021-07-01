@@ -1085,10 +1085,20 @@ class VersatileImageFieldTestCase(VersatileImageFieldBaseTestCase):
     def test_webp_wrong_dimensions(self):
         """Test WebP image dimensions behavior on Django<2.2"""
         with self.assertRaisesMessage(RuntimeError, "could not create decoder object"):
-            VersatileImageTestModel.objects.create(image="python-logo.webp", width=0, height=0)
+            VersatileImageTestModel.objects.create(
+                img_type='webp-no-dimensions',
+                image="python-logo.webp",
+                width=0,
+                height=0
+            )
 
         try:
-            VersatileImageTestModel.objects.create(image="python-logo.webp", width=580, height=164)
+            VersatileImageTestModel.objects.create(
+                img_type='webp-with-dimensions',
+                image="python-logo.webp",
+                width=580,
+                height=164
+            )
         except RuntimeError as e:
             self.fail("ImageField raised RuntimeError unexpectedly! msg: %s" % e)
 
@@ -1096,11 +1106,21 @@ class VersatileImageFieldTestCase(VersatileImageFieldBaseTestCase):
     def test_webp_dimensions_dimensions(self):
         """Test no failures on all WebP image dimensions"""
         try:
-            VersatileImageTestModel.objects.create(image="python-logo.webp", width=0, height=0)
+            VersatileImageTestModel.objects.create(
+                img_type='webp-no-dimensions',
+                image="python-logo.webp",
+                width=0,
+                height=0
+            )
         except RuntimeError as e:
             self.fail("ImageField raised RuntimeError unexpectedly! msg: %s" % e)
 
         try:
-            VersatileImageTestModel.objects.create(image="python-logo.webp", width=580, height=164)
+            VersatileImageTestModel.objects.create(
+                img_type='webp-with-dimensions',
+                image="python-logo.webp",
+                width=580,
+                height=164
+            )
         except RuntimeError as e:
             self.fail("ImageField raised RuntimeError unexpectedly! msg: %s" % e)
